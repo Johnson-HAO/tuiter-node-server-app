@@ -1,5 +1,12 @@
 import posts from "./tuits.js";
 let tuits = posts;
+const initialState = [...tuits]
+
+
+const resetTuits = (req, res) => {
+    tuits = [...initialState];
+    res.json(tuits)
+}
 
 const createTuit = (req, res) => {
     const newTuit = req.body;
@@ -15,22 +22,20 @@ const findTuits  = (req, res) => {
 const updateTuit = (req, res) => {
     const tuitdIdToUpdate = req.params.tid;
     const updates = req.body;
-    const tuitIndex = tuits.findIndex(
-        (t) => t._id === tuitdIdToUpdate)
-    tuits[tuitIndex] =
-        {...tuits[tuitIndex], ...updates};
+    const tuitIndex = tuits.findIndex((t) => t._id === tuitdIdToUpdate)
+    tuits[tuitIndex] = {...tuits[tuitIndex], ...updates};
     res.sendStatus(200);
 
 }
 const deleteTuit = (req, res) => {
     const tuitdIdToDelete = req.params.tid;
-    tuits = tuits.filter((t) =>
-        t._id !== tuitdIdToDelete);
+    tuits = tuits.filter((t) => t._id !== tuitdIdToDelete);
     res.sendStatus(200);
 
 }
 
 export default (app) => {
+    app.get('/api/tuits/reset', resetTuits)
     app.post('/api/tuits', createTuit);
     app.get('/api/tuits', findTuits);
     app.put('/api/tuits/:tid', updateTuit);
