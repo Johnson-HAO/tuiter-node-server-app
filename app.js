@@ -8,6 +8,7 @@ import TuitsController
     from "./controllers/tuits/tuits-controller.js";
 import mongoose from "mongoose";
 
+
 mongoose.connect('mongodb+srv://123:zxcvb@123.o3jb6fb.mongodb.net/?retryWrites=true&w=majority');
 //const CONNECTION_STRING = process.env.DB_CONNECTION_STRING||'mongodb://localhost:27017/tuiter'
 const db = mongoose.connection;
