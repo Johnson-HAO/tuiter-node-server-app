@@ -1,24 +1,27 @@
 import express from 'express';
-import cors from 'cors'
-import HelloController
-    from "./controllers/hello-controller.js"
-import UserController
-    from "./controllers/users/users-controller.js"
-import TuitsController
-    from "./controllers/tuits/tuits-controller.js";
+import HelloController from './controllers/hello-controller.js';
+import TuitsController from './controllers/tuits/tuits-controller.js';
+import UserController from "./controllers/users/users-controller.js";
+import cors from 'cors'; //use to share data between different ports
 import mongoose from "mongoose";
-//
-mongoose.set("strictQuery", true);
-mongoose.connect('mongodb+srv://123:zxcvb@123.o3jb6fb.mongodb.net/?retryWrites=true&w=majority');
-//const CONNECTION_STRING = process.env.DB_CONNECTION_STRING||'mongodb://localhost:27017/tuiter'
 
+
+//'mongodb://localhost:27017/tuiter'
+mongoose.connect('mongodb+srv://123:zxcvb@123.o3jb6fb.mongodb.net/?retryWrites=true&w=majority')
 const db = mongoose.connection;
 db.once("open", () => {console.log('connected successfully')})
 
-const app = express()
-app.use(cors())
-app.use(express.json());
-TuitsController(app);
+
+const app = express() //create server
+
+app.use(cors()) //use after server created
+app.use(express.json())
+
+
 HelloController(app)
 UserController(app)
-app.listen(process.env.PORT || 4000, () => {console.log("server is running on 4000")});
+TuitsController(app)
+
+app.listen(process.env.PORT || 4000, () => {console.log("server is running on 4000")}) //listen on port 4000
+
+

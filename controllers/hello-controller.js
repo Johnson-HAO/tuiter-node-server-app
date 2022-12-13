@@ -1,7 +1,9 @@
 const HelloController = (app) => {
-    app.get('/hello', (req, res) => {
-        res.send('Life is good!')
-    })
+    app.get('/hello', (req, res) => { //path is what given in request, access to path use req.params.xxx
+        res.send('Life is good!');   //let server response something
+        console.log('Hello World');  //let local console output something if req to server is working
+    })  //if the server received a get request, need a path and a handler function
+
     app.get('/', (req, res) => {
         res.send('Welcome to Full Stack Development!')
     })
@@ -16,4 +18,5 @@ const HelloController = (app) => {
     app.delete('', ()=>{}) //if the server received a delete request, need a path and handler function
     app.put('', ()=>{}) //if the server received a put request, need a path and handler function
 }
+
 export default HelloController;
