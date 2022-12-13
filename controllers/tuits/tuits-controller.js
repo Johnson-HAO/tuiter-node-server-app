@@ -8,7 +8,19 @@
     //res.json(tuits)
 //}
 
-import * as tuitsDao from "./tuits-dao.js";
+import * as tuitsDao from "../../tuits/tuits-dao.js";
+import mongoose from 'mongoose';
+const TuitsController = (app) => {
+    //retreive data from server
+    app.get('/api/tuits', findTuits);
+
+    app.post('/api/tuits', createTuit);
+
+    app.put('/api/tuits/:tid', updateTuit);
+
+    app.delete('/api/tuits/:tid', deleteTuit);
+
+}
 
 const createTuit = async (req, res) => {
     const newTuit = req.body;
@@ -41,13 +53,8 @@ const deleteTuit = async (req, res) => {
 
 }
 
-export default (app) => {
-    //app.get('/api/tuits/reset', resetTuits)
-    app.post('/api/tuits', createTuit);
-    app.get('/api/tuits', findTuits);
-    app.put('/api/tuits/:tid', updateTuit);
-    app.delete('/api/tuits/:tid', deleteTuit);
-}
+
+export default TuitsController;
 
 
 
